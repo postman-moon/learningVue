@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>初始Vue</title>
+  <!-- 导入 Vue -->
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    初识 Vue：
+      1. 想让 Vue 工作，就必须创建一个 Vue 实例，且要传入一个配置对象
+      2. root 容器里面的代码依然符合 HTML 规范，只不过混入了一些特殊的 Vue 语法
+      3. root 容器里的代码被称为【Vue模板】
+      4. Vue 实例和容器时一一对应的
+      5. 真实开发中只有一个 Vue 实例，并且会配合着组件一起使用
+      6. {{ xxx }} 中的 xxx 要写 js 表达式，且 xxx 可以自动读取到 data 中的所有属性
+      7. 一旦 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新
+
+      注意区分：js 表达式 和 js 代码（语句）
+        1. 表达式：一个表达式会生成一个值，可以放在任何一个需要值的地方：
+          (1). a
+          (2). a + b
+          (3). demo(1)
+          (4). x === y ? 'a': 'b'
+        
+        2. js代码（语句）
+          (1). if() {}
+          (2). for() {}
+   -->
+
+  <!-- 准备好一个容器 -->
+  <div id="root">
+    <h1>Hello, {{ name }}, {{address}}, {{Date.now()}}</h1>
+  </div>
+
+  <script>
+    Vue.config.productionTip = false;     // 阻止 Vue 在启动时生成提示
+
+    // 创建 Vue 实例
+    new Vue({
+      el: '#root', // el 用于指定当前 Vue 实例为哪个容器服务，值通常为 CSS 选择器字符串
+      data: { // data 中用于存储数据，数据供 el 所指定的容器去hi用，值我们暂时先写成一个对象
+        name: '尚硅谷',
+        address: '上海'
+      }
+    })
+  </script>
+</body>
+</html>
