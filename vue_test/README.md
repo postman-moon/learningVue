@@ -38,50 +38,50 @@
 ## 配置项 props
   功能: 让组件接收外部传过来的数据
 
-    (1). 传递数据
-      ` <Demo name="xxx" /> `
+(1). 传递数据
 
-    (2). 接收数据：
-      - 第一种方式（只接收）:
-        ` props: ['name'] `
-    
-      - 第二种方式（限制类型）：
-        ```javascript
-          props: {
-            name: Number
-          }
-        ```
+​	` <Demo name="xxx" /> `
 
-      - 第三种方式（限制类型、限制必要性、指定默认值）：
-        ```javaScript
-          props: {
-            name: {
-              type: String, // 类型
-              required: true, // 必要性
-              default: '老王', // 默认值
-            }
-          }
-        ```
+(2). 接收数据：
+  - 第一种方式（只接收）:
+    ` props: ['name'] `
 
-  备注：props 是只读的，Vue 底层会监测你对 props 的修改，如果进行了修改，就会发出警告，
-    若业务需求确实需要修改，那么请复制 props 的内容到 data 中一份，然后去修改 data 中的数据
+  - 第二种方式（限制类型）：
+    ```javascript
+      props: {
+        name: Number
+      }
+    ```
+
+  - 第三种方式（限制类型、限制必要性、指定默认值）：
+    ```javaScript
+      props: {
+        name: {
+          type: String, // 类型
+          required: true, // 必要性
+          default: '老王', // 默认值
+        }
+      }
+    ```
+
+备注：props 是只读的，Vue 底层会监测你对 props 的修改，如果进行了修改，就会发出警告，若业务需求确实需要修改，那么请复制 props 的内容到 data 中一份，然后去修改 data 中的数据
 
 ## mixin(混入)
   功能：可以把多个组件共用的配置提取成一个混入对象
 
   使用方式：
     1. 第一步定义混合，例如：
-      ```javascript
-        {
-          data() {...},
-          methods: {...}
-          ...
-        }
-      ```
-    
-    2. 第二部使用混入，例如：
-      - 全局混入：` Vue.mixin(xxx) `
-      - 局部混入：` mixins: ['xxx'] `
+```javascript
+  {
+    data() {...},
+    methods: {...}
+    ...
+  }
+```
+
+2. 第二部使用混入，例如：
+   - 全局混入：` Vue.mixin(xxx) `
+   - 局部混入：` mixins: ['xxx'] `
 
 ## 插件
   功能：用于增强 Vue
@@ -90,22 +90,25 @@
 
   定义插件：
 
-    ```JavaScript
+```javascript
+ 对象.install = function (Vue, options) {
+  // 1. 添加全局过滤器
+  Vue.filter(...)
 
-     对象.install = function (Vue, options) {
-      // 1. 添加全局过滤器
-      Vue.filter(...)
+  // 2.添加全局指令
+  Vue.directive(...)
 
-      // 2.添加全局指令
-      Vue.directive(...)
+  // 3. 配置全局混入（合）
+  Vue.mixin(...)
 
-      // 3. 配置全局混入（合）
-      Vue.mixin(...)
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function () {...}
+  Vue.prototype.$myProperty = xxx
+ }
+```
 
-      // 4. 添加实例方法
-      Vue.prototype.$myMethod = function () {...}
-      Vue.prototype.$myProperty = xxx
-     }
-    ```
+使用插件：` Vue.use() `
 
-    使用插件：` Vue.use() `
+## scoped 样式
+  作用：让样式在局部生效，防止冲突
+  写法：` <style scoped> `

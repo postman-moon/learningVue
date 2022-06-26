@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 @click="showName">学校名称：{{ name | mySlice }}</h2>
+  <div class="demo">
+    <h2>学校名称：{{ name }}</h2>
     <h2>学校地址：{{ address }}</h2>
   </div>
 </template>
@@ -15,14 +15,11 @@ export default {
       address: '北京'
     }
   },
-  methods: {
-    showName() {
-      alert(this.name);
-    }
-  },
 }
 </script>
 
 <style>
-
+  .demo {
+    background-color: skyblue;
+  }
 </style>

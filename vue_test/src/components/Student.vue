@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 @click="showName">学生姓名：{{ name }}</h2>
+  <div class="demo">
+    <h2>学生姓名：{{ name }}</h2>
     <h2>学生性别：{{ sex }}</h2>
   </div>
 </template>
@@ -15,10 +15,11 @@ export default {
       sex: '男'
     }
   },
-  methods: {
-    showName() {
-      alert(this.name);
-    }
-  },
 }
 </script>
+
+<style scoped>
+  .demo {
+    background-color: orange;
+  }
+</style>
