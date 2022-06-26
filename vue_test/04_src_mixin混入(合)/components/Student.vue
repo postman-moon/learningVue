@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { mixin } from '../mixin'
 
 export default {
   name: 'Student',
@@ -15,10 +16,6 @@ export default {
       sex: '男'
     }
   },
-  methods: {
-    showName() {
-      alert(this.name);
-    }
-  },
+  mixins: [mixin]
 }
 </script>
