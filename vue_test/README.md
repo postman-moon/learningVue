@@ -37,6 +37,7 @@
 
 ## 配置项 props
   功能: 让组件接收外部传过来的数据
+
     (1). 传递数据
       ` <Demo name="xxx" /> `
 
@@ -67,6 +68,7 @@
 
 ## mixin(混入)
   功能：可以把多个组件共用的配置提取成一个混入对象
+
   使用方式：
     1. 第一步定义混合，例如：
       ```javascript
@@ -80,3 +82,30 @@
     2. 第二部使用混入，例如：
       - 全局混入：` Vue.mixin(xxx) `
       - 局部混入：` mixins: ['xxx'] `
+
+## 插件
+  功能：用于增强 Vue
+
+  本质：包含 install 方法的一个对象，install 的第一个参数是 Vue，第二个以后的参数是插件使用者传递的数据
+
+  定义插件：
+
+    ```JavaScript
+
+     对象.install = function (Vue, options) {
+      // 1. 添加全局过滤器
+      Vue.filter(...)
+
+      // 2.添加全局指令
+      Vue.directive(...)
+
+      // 3. 配置全局混入（合）
+      Vue.mixin(...)
+
+      // 4. 添加实例方法
+      Vue.prototype.$myMethod = function () {...}
+      Vue.prototype.$myProperty = xxx
+     }
+    ```
+
+    使用插件：` Vue.use() `
