@@ -245,3 +245,12 @@
     4). 提供数据：` pubsub.publish('xxx', 数据) `
 
     5). 最好在 beforeDestroy 钩子中，用 `pubsub.unsubscribe(pid)` 去取消订阅
+
+
+## nextTick
+
+  1. 语法：`this.nextTick(回调函数)`
+
+  2. 作用：在下一次 DOM 更新结束后执行其指定的回调
+
+  3. 什么时候：当改变数据后，要基于更新后的新 DOM 进行某些操作时，要在 nextTick 所指定的回调函数中执行

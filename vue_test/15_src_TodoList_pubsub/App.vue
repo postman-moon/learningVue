@@ -36,14 +36,6 @@
 					if(todo.id === id) todo.done = !todo.done
 				})
 			},
-
-			//更新一个todo
-			updateTodo(id, value){
-				this.todos.forEach((todo)=>{
-					if(todo.id === id) todo.title = value
-				})
-			},
-
 			//删除一个todo
 			deleteTodo(_,id){
 				this.todos = this.todos.filter( todo => todo.id !== id )
@@ -70,13 +62,11 @@
 			}
 		},
 		mounted() {
-			this.$bus.$on('checkTodo',this.checkTodo);
-			this.$bus.$on('updateTodo', this.updateTodo);
-			this.pubId = pubsub.subscribe('deleteTodo',this.deleteTodo);
+			this.$bus.$on('checkTodo',this.checkTodo)
+			this.pubId = pubsub.subscribe('deleteTodo',this.deleteTodo)
 		},
 		beforeDestroy() {
-			this.$bus.$off('checkTodo');
-			this.$bus.$off('updateTodo');
+			this.$bus.$off('checkTodo')
 			pubsub.unsubscribe(this.pubId)
 		},
 	}
@@ -103,12 +93,6 @@
 		color: #fff;
 		background-color: #da4f49;
 		border: 1px solid #bd362f;
-	}
-	.btn-edit {
-		color: #fff;
-		background-color: skyblue;
-		border: 1px solid skyblue;
-		margin-right: 5px;
 	}
 	.btn-danger:hover {
 		color: #fff;
