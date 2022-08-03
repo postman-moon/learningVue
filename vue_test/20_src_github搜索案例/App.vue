@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import Search from './components/Search';
 import List from './components/List';
 
