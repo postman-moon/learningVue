@@ -115,12 +115,13 @@
 
 ## 总结 TodoList 案例
   1. 组件化编码流程
-    (1). 拆分静态组件：组件要按照功能点拆分，命名不要与 html 元素冲突
 
+    (1). 拆分静态组件：组件要按照功能点拆分，命名不要与 html 元素冲突
+    
     (2). 实现动态组件：考虑好数据的存放位置，数据是一个组件在用，还是一些组件在用：
       1). 一个组件在用：放在组件自身即可
       2). 一些组件在用：放在他们共同的父组件上（<span style="color:red">状态提升</span>）
-
+    
     (3). 实现交互：从绑定事件开始
 
   2.props 适用于：
@@ -138,19 +139,21 @@
   2. 浏览器端通过 Window.sessionStorage 和 Window.localStorage 属性来实现本地存储机制
 
   3. 相关 API：
+
     1). xxxxxStorage.setItem('key', 'value');
       该方法接收一个键和值作为参数，会把键值对添加到存储中，如果键名存在，则更新其对应的值。
-
+    
     2). xxxxxStorage.getItem('person);
       该方法接受一个键名作为参数，返回键名对应的值
-
+    
     3). xxxxxStorage.removeItem('key');
       该方法接受一个键名作为参数，并把该键名从存储中删除
-
+    
     4). xxxxxStorage.clear();
       该方法会清空存储中的所有的数据
-    
+
   4. 备注
+
     1). SessionStorage 存储的内容会随着浏览器窗口关闭而消失
     2). LocalStorage 存储的内容，需要手动清除才会消失
     3). xxxxStorage.getItem(xxx) 如果xxx对应的value获取不到，那么getItem的返回值是null
@@ -162,11 +165,11 @@
   2. 使用场景：A 是父组件，B 是子组件，B想给A传数据，那么就要在A中给B绑定自定义事件（事件的回调在A中）
 
   3. 绑定自定义事件：
-  
+
     1). 第一种方式，在父组件中：` <Demo @atguigu="text" /> ` 或 ` <Demo v-on:atguigu="text" /> `
-
+    
     2). 第二种方式，在父组件中：
-
+    
       ```javascript
         <Demo ref="demo" />
         ...
@@ -174,7 +177,7 @@
           this.$refs.xxx.$on('atguigu', this.test)
         }
       ```
-
+    
     3). 若想让自定义事件只触发一次，可以使用once修饰符，或$once方法
 
   4. 触发自定义事件：`this.$emit('atguigu', 数据)`
@@ -191,7 +194,7 @@
   1. 一种组件间通信的方式，适用于任意组件间通信
 
   2. 安装全局事件总线：
-   
+
    ```js
     new Vue({
       ...
@@ -203,7 +206,7 @@
    ```
 
   3. 使用事件总线：
-   
+
    1). 接收数据：A 组件想接收数据，则在A组件中给 $bus 绑定自定义事件，事件的回调留在A组件自身
 
    ```js
@@ -225,25 +228,26 @@
   1. 一种组件间通信的方式，适用于任意组件间通信
 
   2. 使用步骤：
+
     1). 安装 pubsub：`npm i pubsub-js`
-
+    
     2). 引入：`import pubsub from 'pubsub-js'`
-
+    
     3). 接收数据：A组件想接收数据，则在 A 组件中订阅消息，订阅的回调留在 A 组件自身
       ```js
         methods() {
           demo(data) { ...... }
         }
-
+    
         ......
-
+    
         mounted() {
           this.pid = pubsub.syvscribe('xxx', this.demo);  // 订阅消息
         }
       ```
-
+    
     4). 提供数据：` pubsub.publish('xxx', 数据) `
-
+    
     5). 最好在 beforeDestroy 钩子中，用 `pubsub.unsubscribe(pid)` 去取消订阅
 
 
@@ -261,34 +265,34 @@
   1. 作用：在插入、更新或移除 DOM 元素时，在合适的时候给元素添加样式类名
 
   2. 图示
-   
+
 
   3. 写法：
-   
+
     1) 准备好样式
-
+    
       - 元素进入的样式：
-
+    
         - v-enter: 进入的起点
         - v-enter-active: 进入过程中
         - v-enter-to: 进入的终点
-
+    
       - 元素离开的样式：
-
+    
         - v-leave: 离开的起点
         - v-leave-active：离开过程中
         - v-leave-to：离开的终点
-
+    
     2) 使用 `transition` 包裹要过度的元素，并配置 name 属性
-
+    
       ```javascript
-
+    
         <transition name="hello">
           <h1 v-show="isShow">你好啊！</h1>
         </transition>
-
+    
       ```
-
+    
     3) 备注：若有多个元素需要过度，则需要使用: `<transition-group>`，且每个元素都要指定 key 值
 
 ## Vue 脚手架配置代理
@@ -336,3 +340,99 @@
   说明：
     1. 优点：可以配置多个代理，且可以灵活的控制请求是否走代理
     2. 缺点：配置略微繁琐，请求资源时必须加前缀
+
+
+## 插槽
+
+  1. 作用：让父组件可以向子组件指定位置插入 HTML 结构，也是一种组件间通信的方式，适用于 父组件 ==> 子组件
+   
+  2. 分类：默认插槽、具名插槽、作用域插槽
+
+  3. 使用方式：
+
+   -  默认插槽
+
+```javascript
+  父组件中：
+    <Category>
+      <div>
+        HTML 结构1
+      </div>
+    </Category>
+
+  子组件中：
+    <template>
+      <div>
+        <!-- 定义插槽 -->
+        <slot>插槽默认内容</slot>
+      </div>
+    </template>
+```
+
+  - 具名插槽
+  
+```javascript
+父组件中：
+  <Category>
+    <template slot="center">
+      <div>html结构1</div>
+    </template>
+      
+    <template v-slot:footer>
+      <div>html结构2</div>
+    </template>
+  </Category>
+
+子组件中：
+  <template>
+    <div>
+      <!-- 定义插槽 -->
+      <slot name="center">插槽默认内容...</slot>
+      <slot name="footer">插槽默认内容...</slot>
+    </div>
+  </template>
+```
+
+  - 作用域插槽
+    1. 理解：数据在组件的自身，但根据数据生成的结构需要组件的使用者来决定。（games数据在Category组件中，但使用数据所遍历出来的结构由App组件决定）
+
+    2. 具体编码：
+
+```javascript
+父组件中：
+	<Category>
+		<template scope="scopeData">
+			<!-- 生成的是ul列表 -->
+			<ul>
+				<li v-for="g in scopeData.games" :key="g">{{g}}</li>
+			</ul>
+		</template>
+	</Category>
+
+	<Category>
+		<template slot-scope="scopeData">
+			<!-- 生成的是h4标题 -->
+			<h4 v-for="g in scopeData.games" :key="g">{{g}}</h4>
+		</template>
+	</Category>
+
+子组件中：
+  <template>
+      <div>
+          <slot :games="games"></slot>
+      </div>
+  </template>
+		
+  <script>
+      export default {
+          name:'Category',
+          props:['title'],
+          //数据在子组件自身
+          data() {
+              return {
+                  games:['红色警戒','穿越火线','劲舞团','超级玛丽']
+              }
+          },
+      }
+  </script>
+```
