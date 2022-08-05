@@ -6,11 +6,13 @@
 
 		<Category title="游戏" :listData="games">
 			<ul>
-      	<li v-for="(item, index) in games" :key="index">{{ item }}</li>
-    	</ul>
+				<li v-for="(item, index) in games" :key="index">{{ item }}</li>
+			</ul>
 		</Category>
 
-		<Category title="电影" :listDat="games" />
+		<Category title="电影" :listDat="games">
+			<video controls src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+		</Category>
 
 	</div>
 </template>
@@ -37,5 +39,9 @@ export default {
 	.container {
 		display: flex;
 		justify-content: space-around;
+	}
+
+	img, video {
+		width: 200px;
 	}
 </style>
